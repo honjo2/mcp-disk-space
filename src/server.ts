@@ -1,6 +1,5 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import { z } from 'zod';
 import checkDiskSpace from 'check-disk-space';
 
 // ─────────────────────────────────────────────
@@ -14,30 +13,21 @@ const server = new McpServer({
 
 // ─────────────────────────────────────────────
 //  Tool: get-disk-space
-//   - 引数: path (任意) … デフォルト '/' (ルート)
 //   - 出力: Text 形式で「free / total」GB
 // ─────────────────────────────────────────────
-server.tool(
-  'get-disk-space',
-  {
-    path: z.string().optional().describe('Filesystem path to inspect'),
-  },
-  async ({ path = '/' }) => {
-    const { free, size } = await checkDiskSpace(path);
-    const toGB = (bytes: number) => (bytes / 1024 ** 3).toFixed(2);
+server.tool('get-disk-space', {}, async () => {
+  const { free, size } = await checkDiskSpace('/');
+  const toGB = (bytes: number) => (bytes / 1024 ** 3).toFixed(2);
 
-    return {
-      content: [
-        {
-          type: 'text',
-          text: `📀 Disk space for '${path}': ${toGB(free)} GB free / ${toGB(
-            size
-          )} GB total`,
-        },
-      ],
-    };
-  }
-);
+  return {
+    content: [
+      {
+        type: 'text',
+        text: `📀 Disk space: ${toGB(free)} GB free / ${toGB(size)} GB total`,
+      },
+    ],
+  };
+});
 
 // ─────────────────────────────────────────────
 //  Transport: 標準入出力 (CLI 実行想定)

@@ -1,6 +1,13 @@
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 
+type DiskSpaceResponse = {
+  content: Array<{
+    type: 'text';
+    text: string;
+  }>;
+};
+
 async function main() {
   // サーバを子プロセスとして起動する設定
   const transport = new StdioClientTransport({
@@ -16,14 +23,12 @@ async function main() {
   await client.connect(transport);
 
   // ★ Tool 呼び出し
-  const result = await client.callTool({
+  const result = (await client.callTool({
     name: 'get-disk-space',
-    arguments: {
-      // path: "/Users" のように指定してもOK。省略すると "/"。
-    },
-  });
+    arguments: {},
+  })) as DiskSpaceResponse;
 
-  console.log(result.content[0].text); // => 📀 Disk space for '/' : 102.34 GB free / 494.38 GB total
+  console.log(result.content[0].text); // => 📀 Disk space: 102.34 GB free / 494.38 GB total
 
   await client.close();
 }
