@@ -17,6 +17,23 @@ npm run build
 claude_desttop_config.jsonに以下追加しClaudeデスクトップアプリを再起動
 ```json
 "mcp-disk-space": {
+  "command": "/Users/honjo2/.local/share/mise/shims/npx",
+  "args": [
+    "github:honjo2/mcp-disk-space"
+  ]
+}
+```
+
+### Claudeデスクトップアプリに追加（ソースコードをローカルに持ってくる場合）
+ローカルにソースコードをclone
+```sh
+cd /path/to/your/workspace
+git clone https://github.com/honjo2/mcp-disk-space.git
+```
+
+claude_desttop_config.jsonに以下追加しClaudeデスクトップアプリを再起動
+```json
+"mcp-disk-space": {
   "command": "/Users/honjo2/.local/share/mise/shims/node",
   "args": [
     "/path/to/your/workspace/mcp-disk-space/dist/server.js"
