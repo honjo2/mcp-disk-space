@@ -4,15 +4,6 @@
 
 ## MCPクライアント（Claudeデスクトップアプリ）に追加する方法
 
-### MCPサーバ準備
-```sh
-cd path/to/your/workspace
-git clone mcp-disk-space
-cd mcp-disk-space
-npm install
-npm run build
-```
-
 ### Claudeデスクトップアプリに追加
 claude_desttop_config.jsonに以下追加しClaudeデスクトップアプリを再起動
 ```json
@@ -29,6 +20,9 @@ claude_desttop_config.jsonに以下追加しClaudeデスクトップアプリを
 ```sh
 cd /path/to/your/workspace
 git clone https://github.com/honjo2/mcp-disk-space.git
+cd mcp-disk-space
+npm install
+npm run build
 ```
 
 claude_desttop_config.jsonに以下追加しClaudeデスクトップアプリを再起動
