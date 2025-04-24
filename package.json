@@ -1,17 +1,21 @@
 {
   "name": "mcp-disk-space",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "type": "module",
-  "main": "index.js",
+  "main": "dist/server.js",
+  "bin": {
+    "mcp-disk-space": "./dist/server.js"
+  },
   "scripts": {
     "dev": "tsx src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "prepare": "npm run build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "MCP disk space checker",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.10.0",
     "check-disk-space": "^3.4.0"
